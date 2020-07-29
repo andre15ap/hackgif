@@ -1,0 +1,15 @@
+export default {
+  PRIMARY: '#00CDCB',
+  PRIMARY_DARK: '#00EBE6',
+  PRIMARY_LIGHT: '#a5d0b6',
+  SECONDARY: '#095907',
+  WHITE: '#FFFFFF',
+  BLACK: '#000000',
+  BLACK_LIGHT: '#3F4451',
+  GRAY_LIGHT: '#E6E8EA',
+  GRAY: '#9A9DA7',
+  GRAY_DARK: 'rgb(90, 90, 92)',
+  OPACITY: 'rgba(0, 0, 0, 0.4)',
+  DANGER: '#b80802',
+  SUCCESS: '#4ed618',
+};
