@@ -1,11 +1,13 @@
 import React from 'react';
 
-import {Container, Text} from './styles';
+import GifComponent from '../../components/gif';
+
+import {Container} from './styles';
 
 function HomeScreen() {
   return (
     <Container>
-      <Text>Home</Text>
+      <GifComponent />
     </Container>
   );
 }
