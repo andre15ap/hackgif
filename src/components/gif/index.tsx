@@ -6,18 +6,28 @@ import COLORS from '../../librarys/colors';
 
 import {Container, Image, ContainerPosition} from './styles';
 
-function GifConcomponent() {
+interface Props {
+  url: string;
+  position: number;
+}
+
+function GifConcomponent(props: Props) {
+  const {url, position} = props;
+
+  const getPosition = (value: number) => {
+    return value + 1;
+  };
+
   return (
     <Container>
       <ContainerPosition>
         <CustomText color={COLORS.WHITE} size={18}>
-          01
+          {getPosition(position)}
         </CustomText>
       </ContainerPosition>
       <Image
         source={{
-          uri:
-            'https://media.tenor.com/images/505ddb5e0b0e8c3e96b66e1469ef47c1/tenor.gif',
+          uri: url,
         }}
       />
     </Container>

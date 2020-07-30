@@ -6,14 +6,19 @@ import COLORS from '../../librarys/colors';
 const {width} = Dimensions.get('screen');
 
 export const Container = styled.View`
-  background-color: ${COLORS.PRIMARY};
+  background-color: ${COLORS.GRAY_LIGHT};
   align-items: center;
   elevation: 4;
   padding: 10px;
   border-radius: 4px;
+  /* border-width: 5px;
+  border-color: ${COLORS.PRIMARY}; */
+  margin: 10px 0;
 `;
 
-export const Image = styled.Image`
+export const Image = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
   width: ${width * 0.9}px;
   height: ${width * 0.5}px;
   border-radius: 5px;
@@ -27,5 +32,5 @@ export const ContainerPosition = styled.View`
   padding: 15px 8px 10px;
   z-index: 2;
   right: 15px;
-  top: -5px;
+  top: -10px;
 `;

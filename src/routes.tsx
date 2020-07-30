@@ -14,9 +14,13 @@ const Stack = createStackNavigator();
 function Routes() {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={COLORS.WHITE} barStyle="dark-content" />
+      <StatusBar backgroundColor={COLORS.PRIMARY} barStyle="light-content" />
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          options={{title: 'Hackers Gifs'}}
+          name="Home"
+          component={HomeScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
