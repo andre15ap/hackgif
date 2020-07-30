@@ -34,3 +34,15 @@ export const ContainerPosition = styled.View`
   right: 15px;
   top: -10px;
 `;
+
+export const ContainerVotes = styled.View`
+  background-color: ${COLORS.PRIMARY};
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 8px;
+  z-index: 2;
+  left: 5px;
+  bottom: 5px;
+  border-radius: 3px;
+`;

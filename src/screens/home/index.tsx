@@ -12,7 +12,9 @@ function HomeScreen() {
   const [loading, setLoading] = useState(false);
 
   const renderItem = (item: Gif, index: number) => {
-    return <GifComponent url={item.gif_url} position={index} />;
+    return (
+      <GifComponent url={item.gif_url} position={index} votes={item.votes} />
+    );
   };
 
   const getResponseGifs = async () => {
