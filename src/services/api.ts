@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import Alert from '../components/alert';
+
 export interface Gif {
   gif_url: string;
   votes: number;
@@ -31,6 +33,10 @@ export async function getListGifs() {
     const response = await API.get('/hacker-gifs');
     return ordenateVotes(response.data.results);
   } catch (e) {
+    Alert(
+      'Erro',
+      'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
+    );
     console.log(e);
     return [];
   }

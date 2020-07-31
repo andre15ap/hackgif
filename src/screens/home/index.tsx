@@ -3,9 +3,12 @@ import {FlatList, RefreshControl} from 'react-native';
 
 import {getListGifs, Gif} from '../../services/api';
 
-import GifComponent from '../../components/gif';
+import COLORS from '../../librarys/colors';
 
-import {Container} from './styles';
+import GifComponent from '../../components/gif';
+import CustomText from '../../components/customText';
+
+import {Container, Button} from './styles';
 
 function HomeScreen() {
   const [gifs, setGifs] = useState<Gif[]>([]);
@@ -27,9 +30,16 @@ function HomeScreen() {
   useEffect(() => {
     getResponseGifs();
   }, []);
+
   return (
     <Container>
-      {/* {loading && <Loading />} */}
+      {!loading && !gifs.length && (
+        <Button onPress={getResponseGifs}>
+          <CustomText color={COLORS.WHITE} size={20}>
+            Tentar novamente
+          </CustomText>
+        </Button>
+      )}
       <FlatList
         keyExtractor={(item) => item.id}
         data={gifs}
