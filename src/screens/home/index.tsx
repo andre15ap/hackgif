@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, RefreshControl} from 'react-native';
 
 import {getListGifs, Gif} from '../../services/api';
+import {setVoteGifs} from '../../services/votesService';
 
 import COLORS from '../../librarys/colors';
 
@@ -15,11 +16,15 @@ function HomeScreen() {
   const [loading, setLoading] = useState(false);
 
   const handleUp = (item: Gif) => {
-    console.log(item.votes);
+    const newGif = {...item, votes: item.votes + 1};
+    const newGifs = setVoteGifs(newGif, gifs);
+    setGifs(newGifs);
   };
 
   const handleDown = (item: Gif) => {
-    console.log(item.votes);
+    const newGif = {...item, votes: item.votes - 1};
+    const newGifs = setVoteGifs(newGif, gifs);
+    setGifs(newGifs);
   };
 
   const renderItem = (item: Gif, index: number) => {

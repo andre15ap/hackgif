@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import {ordenateVotes} from './votesService';
+
 import Alert from '../components/alert';
 
 export interface Gif {
@@ -18,24 +20,11 @@ const API = axios.create({
   timeout: 10000,
 });
 
-// function ordenateVotes(votes: Gif[]) {
-//   const ordenates = votes.sort((a, b) => {
-//     if (a.votes < b.votes) {
-//       return 1;
-//     }
-//     if (a.votes > b.votes) {
-//       return -1;
-//     }
-//     return 0;
-//   });
-//   return ordenates;
-// }
-
 export async function getListGifs() {
   try {
     const response = await API.get('/hacker-gifs');
-    // return ordenateVotes(response.data.results);
-    return response.data.results;
+    const gifs = response.data.results;
+    return PRODUCTION ? gifs : ordenateVotes(gifs);
   } catch (e) {
     Alert(
       'Erro',
