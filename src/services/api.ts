@@ -5,10 +5,10 @@ import Alert from '../components/alert';
 export interface Gif {
   gif_url: string;
   votes: number;
-  id: string;
+  id: number;
 }
 
-const PRODUCTION = true;
+const PRODUCTION = false;
 
 const URL_PRODUCTION = 'https://hackgif.herokuapp.com/api';
 const URL_DEVELOP = 'https://gitlab.com/loeffa/very-smart-api/-/raw/master';

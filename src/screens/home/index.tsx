@@ -14,9 +14,23 @@ function HomeScreen() {
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const handleUp = (item: Gif) => {
+    console.log(item.votes);
+  };
+
+  const handleDown = (item: Gif) => {
+    console.log(item.votes);
+  };
+
   const renderItem = (item: Gif, index: number) => {
     return (
-      <GifComponent url={item.gif_url} position={index} votes={item.votes} />
+      <GifComponent
+        url={item.gif_url}
+        position={index}
+        votes={item.votes}
+        actionUp={() => handleUp(item)}
+        actionDown={() => handleDown(item)}
+      />
     );
   };
 
@@ -41,7 +55,7 @@ function HomeScreen() {
         </Button>
       )}
       <FlatList
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `${item.id}`}
         data={gifs}
         renderItem={({item, index}) => renderItem(item, index)}
         refreshControl={
