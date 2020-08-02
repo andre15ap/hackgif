@@ -17,7 +17,6 @@ export function setVoteGifs(item: Gif, votes: Gif[]): Gif[] {
   const newGifs = votes.map((value) => {
     return value.id === item.id ? item : value;
   });
-  console.log(item);
 
   return ordenateVotes(newGifs);
 }

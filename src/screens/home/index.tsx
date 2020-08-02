@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import {FlatList, RefreshControl, Animated} from 'react-native';
 
 import {getListGifs, Gif} from '../../services/api';
 import {setVoteGifs} from '../../services/votesService';
 
-import LogoSvg from '../../assets/svgs/logo';
-
 import COLORS from '../../librarys/colors';
 
+import Header from '../../components/header';
 import GifComponent from '../../components/gif';
 import CustomText from '../../components/customText';
 
@@ -16,6 +15,8 @@ import {Container, Button} from './styles';
 function HomeScreen() {
   const [gifs, setGifs] = useState<Gif[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [scrollY] = useState(new Animated.Value(0));
 
   const handleUp = (item: Gif) => {
     const newGif = {...item, votes: item.votes + 1};
@@ -54,7 +55,7 @@ function HomeScreen() {
 
   return (
     <Container>
-      <LogoSvg color={COLORS.WHITE} />
+      <Header scrollY={scrollY} />
       {!loading && !gifs.length && (
         <Button onPress={getResponseGifs}>
           <CustomText color={COLORS.WHITE} size={20}>
@@ -69,6 +70,17 @@ function HomeScreen() {
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={getResponseGifs} />
         }
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {y: scrollY},
+              },
+            },
+          ],
+          {useNativeDriver: false},
+        )}
       />
     </Container>
   );

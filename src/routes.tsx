@@ -20,14 +20,7 @@ function Routes() {
       />
       <Stack.Navigator>
         <Stack.Screen
-          options={{
-            title: 'Hackers Gifs',
-            headerTintColor: COLORS.WHITE,
-            headerTitleAlign: 'center',
-            headerStyle: {
-              backgroundColor: COLORS.PRIMARY,
-            },
-          }}
+          options={{headerShown: false}}
           name="Home"
           component={HomeScreen}
         />
