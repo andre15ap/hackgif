@@ -4,6 +4,8 @@ import {FlatList, RefreshControl} from 'react-native';
 import {getListGifs, Gif} from '../../services/api';
 import {setVoteGifs} from '../../services/votesService';
 
+import LogoSvg from '../../assets/svgs/logo';
+
 import COLORS from '../../librarys/colors';
 
 import GifComponent from '../../components/gif';
@@ -52,6 +54,7 @@ function HomeScreen() {
 
   return (
     <Container>
+      <LogoSvg color={COLORS.WHITE} />
       {!loading && !gifs.length && (
         <Button onPress={getResponseGifs}>
           <CustomText color={COLORS.WHITE} size={20}>
