@@ -21,7 +21,6 @@ export const Container = styled.View`
 `;
 
 export const ContainerButtons = styled.View`
-  flex: 1;
   margin-top: 10px;
   flex-direction: row;
   justify-content: space-around;
@@ -36,7 +35,7 @@ export const Button = styled.TouchableOpacity`
   border-width: 1px;
   background-color: ${COLORS.WHITE};
   border-color: ${(props: Props) => props.border || COLORS.PRIMARY};
-  elevation: 2;
+  elevation: 3;
   align-items: center;
 `;
 
@@ -55,10 +54,12 @@ export const ContainerPosition = styled.View`
   position: absolute;
   align-items: center;
   justify-content: center;
-  padding: 15px 8px 10px;
+  padding: 12px 8px 8px;
+  border-radius: 3px;
   z-index: 2;
   right: 15px;
-  top: -10px;
+  top: -8px;
+  elevation: 2;
 `;
 
 export const ContainerVotes = styled.View`

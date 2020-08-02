@@ -45,7 +45,7 @@ function GifComponent(props: Props) {
       <ContainerButtons>
         <ContainerVotes>
           <CustomText color={COLORS.WHITE} size={18}>
-            {`votos: ${votes || 0}`}
+            {`votos ${votes || 0}`}
           </CustomText>
         </ContainerVotes>
         <Button onPress={actionUp} disabled={loading}>

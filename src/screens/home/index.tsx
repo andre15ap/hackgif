@@ -94,6 +94,7 @@ function HomeScreen() {
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={getResponseGifs} />
         }
+        scrollEnabled={!loading}
         onEndReachedThreshold={0.3}
         onEndReached={getNextPage}
         ListFooterComponent={nextPage ? <Loading /> : null}
