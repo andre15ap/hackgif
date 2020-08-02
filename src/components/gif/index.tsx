@@ -18,12 +18,13 @@ interface Props {
   url: string;
   position: number;
   votes: number;
+  loading?: boolean;
   actionUp: () => void;
   actionDown: () => void;
 }
 
 function GifComponent(props: Props) {
-  const {url, position, votes, actionUp, actionDown} = props;
+  const {url, position, votes, loading, actionUp, actionDown} = props;
 
   const getPosition = (value: number) => {
     return value + 1;
@@ -47,11 +48,12 @@ function GifComponent(props: Props) {
             {`votos: ${votes || 0}`}
           </CustomText>
         </ContainerVotes>
-        <Button onPress={actionUp}>
+        <Button onPress={actionUp} disabled={loading}>
           <LikeSvg size={30} color={COLORS.PRIMARY} />
         </Button>
         <Button
           onPress={actionDown}
+          disabled={loading}
           style={{transform: [{rotate: '180deg'}]}}
           border={COLORS.DANGER}>
           <LikeSvg size={30} color={COLORS.DANGER} />

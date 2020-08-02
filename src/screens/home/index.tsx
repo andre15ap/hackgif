@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, RefreshControl, Animated} from 'react-native';
 
-import {getListGifs, Gif} from '../../services/api';
+import {getListGifs, updateGif, Gif} from '../../services/api';
 import {setVoteGifs} from '../../services/votesService';
 
 import COLORS from '../../librarys/colors';
@@ -9,6 +9,7 @@ import COLORS from '../../librarys/colors';
 import Header from '../../components/header';
 import GifComponent from '../../components/gif';
 import CustomText from '../../components/customText';
+import Loading from '../../components/loading';
 
 import {Container, Button} from './styles';
 
@@ -18,16 +19,24 @@ function HomeScreen() {
 
   const [scrollY] = useState(new Animated.Value(0));
 
-  const handleUp = (item: Gif) => {
-    const newGif = {...item, votes: item.votes + 1};
-    const newGifs = setVoteGifs(newGif, gifs);
-    setGifs(newGifs);
+  const updateServer = async (git: Gif) => {
+    setLoading(true);
+    const result = await updateGif(git);
+    if (result) {
+      const newGifs = setVoteGifs(git, gifs);
+      setGifs(newGifs);
+    }
+    setLoading(false);
   };
 
-  const handleDown = (item: Gif) => {
+  const handleUp = (item: Gif) => {
+    const newGif = {...item, votes: item.votes + 1};
+    updateServer(newGif);
+  };
+
+  const handleDown = async (item: Gif) => {
     const newGif = {...item, votes: item.votes - 1};
-    const newGifs = setVoteGifs(newGif, gifs);
-    setGifs(newGifs);
+    updateServer(newGif);
   };
 
   const renderItem = (item: Gif, index: number) => {
@@ -36,6 +45,7 @@ function HomeScreen() {
         url={item.gif_url}
         position={index}
         votes={item.votes}
+        loading={loading}
         actionUp={() => handleUp(item)}
         actionDown={() => handleDown(item)}
       />
@@ -63,6 +73,7 @@ function HomeScreen() {
           </CustomText>
         </Button>
       )}
+      {loading && !gifs.length && <Loading />}
       <FlatList
         keyExtractor={(item) => `${item.id}`}
         data={gifs}
