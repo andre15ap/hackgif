@@ -8,7 +8,7 @@ export interface Gif {
   id: number;
 }
 
-const PRODUCTION = false;
+const PRODUCTION = true;
 
 const URL_PRODUCTION = 'https://hackgif.herokuapp.com/api';
 const URL_DEVELOP = 'http://192.168.0.203:8000/api';
@@ -18,6 +18,13 @@ const API = axios.create({
   timeout: 10000,
 });
 
+const defaultError = () => {
+  Alert(
+    'Erro',
+    'Algo inexperado aconteceu, verifique sua conexão com a internet e tente novamvente :(',
+  );
+};
+
 export async function getListGifs() {
   try {
     const response = await API.get('/hacker-gifs');
@@ -25,10 +32,7 @@ export async function getListGifs() {
     const {next} = response.data;
     return {gifs, next};
   } catch (e) {
-    Alert(
-      'Erro',
-      'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
-    );
+    defaultError();
     console.log(e);
     return undefined;
   }
@@ -41,10 +45,7 @@ export async function getNextPageGifs(url: string) {
     const {next} = response.data;
     return {gifs, next};
   } catch (e) {
-    Alert(
-      'Erro',
-      'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
-    );
+    defaultError();
     console.log(e);
     return undefined;
   }
@@ -57,10 +58,7 @@ export async function updateGif(gif: Gif) {
     await API.put(`/hacker-gifs/${id}/`, data);
     return true;
   } catch (e) {
-    Alert(
-      'Erro',
-      'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
-    );
+    defaultError();
     console.log(e);
     return false;
   }
