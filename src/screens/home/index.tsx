@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, RefreshControl, Animated} from 'react-native';
 
-import {getListGifs, updateGif, Gif} from '../../services/api';
+import {getListGifs, getNextPageGifs, updateGif, Gif} from '../../services/api';
 import {setVoteGifs} from '../../services/votesService';
 
 import COLORS from '../../librarys/colors';
@@ -15,6 +15,7 @@ import {Container, Button} from './styles';
 
 function HomeScreen() {
   const [gifs, setGifs] = useState<Gif[]>([]);
+  const [nextPage, setNextPage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [scrollY] = useState(new Animated.Value(0));
@@ -52,10 +53,22 @@ function HomeScreen() {
     );
   };
 
+  const getNextPage = async () => {
+    if (!nextPage) return;
+    const response = await getNextPageGifs(nextPage);
+    if (response) {
+      setGifs([...gifs, ...response.gifs]);
+      setNextPage(response.next);
+    }
+  };
+
   const getResponseGifs = async () => {
     setLoading(true);
     const response = await getListGifs();
-    setGifs(response);
+    if (response) {
+      setGifs(response.gifs);
+      setNextPage(response.next);
+    }
     setLoading(false);
   };
 
@@ -81,6 +94,9 @@ function HomeScreen() {
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={getResponseGifs} />
         }
+        onEndReachedThreshold={0.3}
+        onEndReached={getNextPage}
+        ListFooterComponent={nextPage ? <Loading /> : null}
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [

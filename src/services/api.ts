@@ -22,14 +22,31 @@ export async function getListGifs() {
   try {
     const response = await API.get('/hacker-gifs');
     const gifs = response.data.results;
-    return gifs;
+    const {next} = response.data;
+    return {gifs, next};
   } catch (e) {
     Alert(
       'Erro',
       'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
     );
     console.log(e);
-    return [];
+    return undefined;
+  }
+}
+
+export async function getNextPageGifs(url: string) {
+  try {
+    const response = await axios.get(url);
+    const gifs = response.data.results;
+    const {next} = response.data;
+    return {gifs, next};
+  } catch (e) {
+    Alert(
+      'Erro',
+      'Algo inexperado aconteceu verifique sua conexão com a internet e tente novamvente :(',
+    );
+    console.log(e);
+    return undefined;
   }
 }
 
